@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample-site</title>
+
+    <!--main CSS File-->
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!--Owl-carousel CSS-->
+    <link rel="stylesheet" href="./owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="./owl-carousel/owl.theme.default.min.css">
+
+</head>
+
+<body>
+
+    <div id="fb-root"></div>
+    <!-- <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v8.0&appId=110439309622036&autoLogAppEvents=1"
+        nonce="BIchl1jo"></script> -->
+    <div id="containerRoot">
+        <div id="head">
+            <div class="right_head">
+                <div class="right_head_inner">
+                    <div id="topHolderBox">
+                        <img src="https://static.anmedm.com/images/user-small.png" alt="user" class="v_middle mb5">
+                        <!-- <span class="topHolderBox_hi">Hi</span> <a id="aDropDown" class="boxDropDown"><span>
+                                user <span class="clsHadUnread"></span>
+                                <small class="topHolderBox_drop">▼</small></span></a>
+                        <div id="menu_box">
+                            <a href="https://kissanime.com.ru/BookmarkList">&nbsp;&nbsp;<img
+                                    src="https://static.anmedm.com/images/bookmark1.png">&nbsp;Bookmark list<span
+                                    class="clsHadUnread">...</span></a>
+                            <a href="https://kissanime.com.ru/Profile?redirect_to=/kissanime-home.html">&nbsp;&nbsp;<img
+                                    src="https://static.anmedm.com/images/change.png">&nbsp;Profile</a>
+                            <a href="javascript:void(0)" onclick="logoutKiss()">&nbsp;&nbsp;<img
+                                    src="https://static.anmedm.com/images/logout.png">&nbsp;Logout</a>
+                        </div> -->
+                    </div>
+                </div>
+                <div id="search">
+                    <form id="formSearch" method="post" action="https://kissanime.com.ru/Seach/">
+                        <p>
+                            <input type="text" autocomplete="off" id="keyword" name="s" value="" class="text" />
+                            <label for="keyword">keyword</label>
+                            <button type="submit" class="btn" id="imgSearch" onclick="return false;">SEARCH</button>
+                        </p>
+                        <div id="result_box"></div>
+                        <div class="like_head full">
+                            <!-- <div>
+                                <div class="fb-like" data-href="https://kissanime.com.ru" data-layout="button_count"
+                                    data-action="like" data-size="small" data-show-faces="false" data-share="false">
+                                </div>
+                            </div> -->
+                            <a href="/AdvanceSearch"><img src="https://img.icons8.com/fluency/48/000000/search.png"
+                                    alt="search image" width="16px" border="0">&nbsp;&nbsp;Advanced Search</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="left_head">
+                <a href="https://kissanime.com.ru/kissanime.html" title="KissAnime - High quality anime online"
+                    class="logo"><img
+                        src="data:image/png;base64,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"
+                        alt="" srcset=""></a>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="headnav">
+            <div id="navbar">
+                <div id="navcontainer">
+                    <ul>
+                        <li id="liHome"><a rel="nofollow" id="currentTab"
+                                href="https://kissanime.com.ru/kissanime-home.html">Home</a></li>
+                        <li id="liDS"><a href="https://kissanime.com.ru/AnimeListOnline">AnimeList</a></li>
+                        <li id="liTrending"><a href="https://kissanime.com.ru/AnimeListOnline/Trending">Anime Dubbed</a>
+                        </li>
+                        <li id="liSchedule"><a href="https://kissanime.com.ru/Schedule">Watch Cartoon</a></li>
+                        <li id="liReportError"><a rel="nofollow" href="/ReportError">Report/Request</a></li>
+                        <li id="liApp"></li>
+                        <li><a target='_blank' rel="noopener" href="https://kisscartoon.sh">SEARCH HERE</a></li>
+                    </ul>
+
+                    <!-- Language convertor checkbox -->
+                    <!-- <div class="jtitle_block quicktoggler tip" title=""
+                        title="Display anime names in English or Japanese"> <label class="switch"><span
+                                class="slider round"></span></label> <span class="text">EN/JP Name</span> </div> -->
+                </div>
+            </div>
+            <div id="navsubbar">
+                <div class="full">
+                    <h1>Latest Animes on KissAnime | upcoming Anime</h1>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="container">
+            <div id="leftside">
+                <div class="clear">
+                </div>
+                <div class="banner full">
+                    <!-- Random Anime -->
+                    <div class="details" style="min-height:50px;">
+                        <div id="divRandomAnime">
+                            <a aria-label="My Hero Academia the Movie: Two Heroes" id="aRandomAnimeResult"
+                                custom="Boku-no-Hero-Academia-The-Movie-Futari-no-Hero.42919"
+                                href="https://kissanime.com.ru/Anime/Boku-no-Hero-Academia-The-Movie-Futari-no-Hero.42919/">
+                                <img alt="My Hero Academia the Movie: Two Heroes"
+                                    src="data:image/jpeg;base64,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">
+                            </a>
+                            <h2><a class="bigChar jtitle" data-jtitle="Boku no Hero Academia The Movie: Futari no Hero"
+                                    href="https://kissanime.com.ru/Anime/Boku-no-Hero-Academia-The-Movie-Futari-no-Hero.42919/">Shingeki
+                                    no Kyojin Season 3 (Sub)</a></h2>
+                            <p class="info">
+                                <span>Genres:</span>
+                                <a href="/Genre/Action" class="dotUnder" title="Action">Action</a><span
+                                    class="info">,</span> <a href="/Genre/Comedy" class="dotUnder"
+                                    title="Comedy">Thriller</a><span class="info">,</span> <a href="/Genre/School"
+                                    class="dotUnder" title="School">Fantasy</a>
+                                <!-- <span class="info">,</span> <a
+                                    href="/Genre/Shounen" class="dotUnder" title="Shounen">Shounen</a><span
+                                    class="info">,</span> <a href="/Genre/Super-Power" class="dotUnder"
+                                    title="Super Power">Super Power</a> -->
+                            </p>
+                            <p>Watch Anime Online on KissAnime Watch Subbed or Dubbed, you can watch via mobile table or
+                                desktop for free, also download your favorite anime on KissAnime in High Quality HD 480p
+                                upto 1080p in mp4 format.</p>
+                        </div>
+                        <div id="divReload">
+                            <a id="btnReloadRandom" class="btn" title="Get random anime" href="#"
+                                onclick="return false;">
+                                RANDOM
+                            </a>
+                        </div>
+
+                        <div id="divShowGenre" style="display: none">
+                            <div class="fll v_top">
+                                <select name="selectGenre" id="selectGenre">
+                                    <option selected="" value="All">All</option>
+                                    <option value="Action">Action</option>
+                                    <option value="Adventure">Adventure</option>
+                                    <option value="Cars">Cars</option>
+                                    <option value="Cartoon">Cartoon</option>
+                                    <option value="Comedy">Comedy</option>
+                                    <option value="Dementia">Dementia</option>
+                                    <option value="Demons">Demons</option>
+                                    <option value="Drama">Drama</option>
+                                    <option value="Dub">Dub</option>
+                                    <option value="Fantasy">Fantasy</option>
+                                    <option value="Game">Game</option>
+                                    <option value="Historical">Historical</option>
+                                    <option value="Horror">Horror</option>
+                                    <option value="Josei">Josei</option>
+                                    <option value="Kids">Kids</option>
+                                    <option value="Magic">Magic</option>
+                                    <option value="Martial-Arts">Martial Arts</option>
+                                    <option value="Mecha">Mecha</option>
+                                    <option value="Military">Military</option>
+                                    <option value="Movie">Movie</option>
+                                    <option value="Music">Music</option>
+                                    <option value="Mystery">Mystery</option>
+                                    <option value="ONA">ONA</option>
+                                    <option value="OVA">OVA</option>
+                                    <option value="Parody">Parody</option>
+                                    <option value="Police">Police</option>
+                                    <option value="Psychological">Psychological</option>
+                                    <option value="Romance">Romance</option>
+                                    <option value="Samurai">Samurai</option>
+                                    <option value="School">School</option>
+                                    <option value="Sci-Fi">Sci-Fi</option>
+                                    <option value="Seinen">Seinen</option>
+                                    <option value="Shoujo">Shoujo</option>
+                                    <option value="Shoujo-Ai">Shoujo Ai</option>
+                                    <option value="Shounen">Shounen</option>
+                                    <option value="Shounen-Ai">Shounen Ai</option>
+                                    <option value="Slice-of-Life">Slice of Life</option>
+                                    <option value="Space">Space</option>
+                                    <option value="Special">Special</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Super-Power">Super Power</option>
+                                    <option value="Supernatural">Supernatural</option>
+                                    <option value="Thriller">Thriller</option>
+                                    <option value="Vampire">Vampire</option>
+                                    <option value="Yuri">Yuri</option>
+                                </select>
+                            </div>
+                            <div class="fll pl5">
+                                <a id="btnReloadRandomMain" class="btn" title="Get random anime" href="#"
+                                    onclick="return false;">
+                                    RANDOM
+                                </a>
+                            </div>
+                        </div>
+                        <div id="divLoading" style="display: none;">
+                            <img src="https://static.anmedm.com/themes/v3/images/loading.gif">
+                        </div>
+                    </div>
+                </div>
+                <div class="clear2"></div>
+
+                <div class="bigBarContainer full">
+                    <div id="pintohome"></div>
+                    <div class="barTitle">Latest Update</div>
+                    <div class="barContent">
+                        <div class="arrow-general"></div>
+                        <div class="full slide_items">
+                            <div class="items full">
+                                <div class="owl-row">
+                                    <div class="owl-carousel owl-theme owl5">
+                                        <div>
+                                            <a aria-label="Higurashi: When They Cry - SOTSU (Dub)"
+                                                class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/08/Higurashi-When-They-Cry-SOTSU-Dub.jpg);"
+                                                href="https://kissanime.com.ru/Anime/higurashi-when-they-cry-sotsu-dub.94275/"
+                                                title="Episode 5">
+                                                <img alt="Higurashi: When They Cry - SOTSU (Dub)"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/08/Higurashi-When-They-Cry-SOTSU-Dub.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/higurashi-when-they-cry-sotsu-dub.94275/"
+                                                    data-jtitle="Higurashi no Naku Koro ni Sotsu (Dub)"
+                                                    title="Higurashi: When They Cry - SOTSU (Dub)">Higurashi: When They
+                                                    Cry - SOTSU (Dub)</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/higurashi-when-they-cry-sotsu-dub.94275/Episode-005?id=172663">
+                                                Episode 005 </a>
+                                        </div>
+
+                                        <div>
+                                            <a aria-label="SD Gundam World Heroes" class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/04/SD-Gundam-World-Heroes.jpg);"
+                                                href="https://kissanime.com.ru/Anime/SD-Gundam-World-Heroes/"
+                                                title="Episode 25">
+                                                <img alt="SD Gundam World Heroes"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/04/SD-Gundam-World-Heroes.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/SD-Gundam-World-Heroes/"
+                                                    data-jtitle="SD Gundam World Heroes"
+                                                    title="SD Gundam World Heroes">SD Gundam World Heroes</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/SD-Gundam-World-Heroes/Episode-024?id=172660">
+                                                Episode 024 </a>
+                                        </div>
+
+                                        <div>
+                                            <a aria-label="NIGHT HEAD 2041" class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/06/NIGHT-HEAD-2041.jpg);"
+                                                href="https://kissanime.com.ru/Anime/NIGHT-HEAD-2041/"
+                                                title="Episode 11">
+                                                <img alt="NIGHT HEAD 2041"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/06/NIGHT-HEAD-2041.jpg">
+                                            </a>
+                                            <h3><a class="jtitle" href="https://kissanime.com.ru/Anime/NIGHT-HEAD-2041/"
+                                                    data-jtitle="Night Head 2041" title="NIGHT HEAD 2041">NIGHT HEAD
+                                                    2041</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/NIGHT-HEAD-2041/Episode-010?id=172658">
+                                                Episode 010 </a>
+                                        </div>
+
+                                        <div>
+                                            <a aria-label="Miss Kobayashi's Dragon Maid S (Dub)"
+                                                class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/08/Miss-Kobayashi-s-Dragon-Maid-S-Dub.jpg);"
+                                                href="https://kissanime.com.ru/Anime/miss-kobayashi-s-dragon-maid-s-dub.20364/"
+                                                title="Episode 5">
+                                                <img alt="Miss Kobayashi's Dragon Maid S (Dub)"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/08/Miss-Kobayashi-s-Dragon-Maid-S-Dub.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/miss-kobayashi-s-dragon-maid-s-dub.20364/"
+                                                    data-jtitle="Kobayashi-san Chi no Maid Dragon S (Dub)"
+                                                    title="Miss Kobayashi's Dragon Maid S (Dub)">Miss Kobayashi's Dragon
+                                                    Maid S (Dub)</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/miss-kobayashi-s-dragon-maid-s-dub.20364/Episode-005?id=172654">
+                                                Episode 005 </a>
+                                        </div>
+
+                                        <div>
+                                            <a aria-label="TSUKIMICHI -Moonlit Fantasy-" class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/06/TSUKIMICHI-Moonlit-Fantasy.jpg);"
+                                                href="https://kissanime.com.ru/Anime/TSUKIMICHI-Moonlit-Fantasy/"
+                                                title="Episode 12">
+                                                <img alt="TSUKIMICHI -Moonlit Fantasy-"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/06/TSUKIMICHI-Moonlit-Fantasy.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/TSUKIMICHI-Moonlit-Fantasy/"
+                                                    data-jtitle="Tsuki ga Michibiku Isekai Douchuu"
+                                                    title="TSUKIMICHI -Moonlit Fantasy-">TSUKIMICHI -Moonlit
+                                                    Fantasy-</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/TSUKIMICHI-Moonlit-Fantasy/Episode-011?id=172652">
+                                                Episode 011 </a>
+                                        </div>
+
+                                        <div>
+                                            <a aria-label="Idol Land PriPara" class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/08/Idol-Land-PriPara.jpg);"
+                                                href="https://kissanime.com.ru/Anime/Idol-Land-PriPara/"
+                                                title="Episode 2">
+                                                <img alt="Idol Land PriPara"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/08/Idol-Land-PriPara.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/Idol-Land-PriPara/"
+                                                    data-jtitle="Idol Land PriPara" title="Idol Land PriPara">Idol Land
+                                                    PriPara</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/Idol-Land-PriPara/Episode-001?id=172315">
+                                                Episode 001 </a>
+                                        </div>
+                                        <div>
+                                            <a aria-label="That Time I Got Reincarnated as a Slime Season 2 (Dub)"
+                                                class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/02/That-Time-I-Got-Reincarnated-as-a-Slime-Season-2-Dub.jpg);"
+                                                href="https://kissanime.com.ru/Anime/that-time-i-got-reincarnated-as-a-slime-season-2-dub.93604/"
+                                                title="Episode 15">
+                                                <img alt="That Time I Got Reincarnated as a Slime Season 2 (Dub)"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/02/That-Time-I-Got-Reincarnated-as-a-Slime-Season-2-Dub.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/that-time-i-got-reincarnated-as-a-slime-season-2-dub.93604/"
+                                                    data-jtitle="Tensei Shitara Slime Datta Ken 2nd Season (Dub)"
+                                                    title="That Time I Got Reincarnated as a Slime Season 2 (Dub)">That
+                                                    Time I Got Reincarnated as a Slime Season 2 (Dub)</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/that-time-i-got-reincarnated-as-a-slime-season-2-dub.93604/Episode-015?id=172649">
+                                                Episode 015 </a>
+                                        </div>
+
+                                        <div>
+                                            <a aria-label="That Time I Got Reincarnated as a Slime Season 2 Part 2"
+                                                class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/06/That-Time-I-Got-Reincarnated-as-a-Slime-Season-2-Part-2.jpg);"
+                                                href="https://kissanime.com.ru/Anime/That-Time-I-Got-Reincarnated-as-a-Slime-Season-2-Part-2.48046/"
+                                                title="Episode 13">
+                                                <img alt="That Time I Got Reincarnated as a Slime Season 2 Part 2"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/06/That-Time-I-Got-Reincarnated-as-a-Slime-Season-2-Part-2.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/That-Time-I-Got-Reincarnated-as-a-Slime-Season-2-Part-2.48046/"
+                                                    data-jtitle="Tensei Shitara Slime Datta Ken 2nd Season Part 2"
+                                                    title="That Time I Got Reincarnated as a Slime Season 2 Part 2">That
+                                                    Time I Got Reincarnated as a Slime Season 2 Part 2</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/That-Time-I-Got-Reincarnated-as-a-Slime-Season-2-Part-2.48046/Episode-047?id=172647">
+                                                Episode 047 </a>
+                                        </div>
+                                        <div>
+                                            <a aria-label="Ranking of Kings" class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/09/Ranking-of-Kings.jpg);"
+                                                href="https://kissanime.com.ru/Anime/Ranking-of-Kings/"
+                                                title="Episode 1">
+                                                <img alt="Ranking of Kings"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/09/Ranking-of-Kings.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/Ranking-of-Kings/"
+                                                    data-jtitle="Ousama Ranking" title="Ranking of Kings">Ranking of
+                                                    Kings</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/Ranking-of-Kings/-Trailer?id=172645">
+                                                _Trailer </a>
+                                        </div>
+
+                                        <div>
+                                            <a aria-label="Kaginado" class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/09/Kaginado.jpg);"
+                                                href="https://kissanime.com.ru/Anime/Kaginado/" title="Episode 1">
+                                                <img alt="Kaginado"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/09/Kaginado.jpg">
+                                            </a>
+                                            <h3><a class="jtitle" href="https://kissanime.com.ru/Anime/Kaginado/"
+                                                    data-jtitle="Kaginado" title="Kaginado">Kaginado</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/Kaginado/-Trailer?id=172646">
+                                                _Trailer </a>
+                                        </div>
+                                        <div>
+                                            <a aria-label="Idaten Deities in the Peaceful Generation"
+                                                class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/06/Idaten-Deities-in-the-Peaceful-Generation.jpg);"
+                                                href="https://kissanime.com.ru/Anime/Idaten-Deities-in-the-Peaceful-Generation/"
+                                                title="Episode 10">
+                                                <img alt="Idaten Deities in the Peaceful Generation"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/06/Idaten-Deities-in-the-Peaceful-Generation.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/Idaten-Deities-in-the-Peaceful-Generation/"
+                                                    data-jtitle="Heion Sedai no Idaten-tachi"
+                                                    title="Idaten Deities in the Peaceful Generation">Idaten Deities in
+                                                    the Peaceful Generation</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/Idaten-Deities-in-the-Peaceful-Generation/Episode-009?id=172643">
+                                                Episode 009 </a>
+                                        </div>
+
+                                        <div>
+                                            <a aria-label="Yu-Gi-Oh!: Sevens" class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2020/02/YuGiOh-Sevens.jpg);"
+                                                href="https://kissanime.com.ru/Anime/yugioh-sevens.62937/"
+                                                title="Episode 66">
+                                                <img alt="Yu-Gi-Oh!: Sevens"
+                                                    src="https://static.anmedm.com/media/imagesv2/2020/02/YuGiOh-Sevens.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/yugioh-sevens.62937/"
+                                                    data-jtitle="Yuu Gi Ou!: Sevens"
+                                                    title="Yu-Gi-Oh!: Sevens">Yu-Gi-Oh!: Sevens</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/yugioh-sevens.62937/Episode-065?id=172641">
+                                                Episode 065 </a>
+                                        </div>
+
+                                        <div>
+                                            <a aria-label="To Your Eternity (Dub)" class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/06/To-Your-Eternity-Dub.jpg);"
+                                                href="https://kissanime.com.ru/Anime/To-Your-Eternity-Dub/"
+                                                title="Episode 15">
+                                                <img alt="To Your Eternity (Dub)"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/06/To-Your-Eternity-Dub.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/To-Your-Eternity-Dub/"
+                                                    data-jtitle="Fumetsu no Anata e (Dub)"
+                                                    title="To Your Eternity (Dub)">To Your Eternity (Dub)</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/To-Your-Eternity-Dub/Episode-015?id=172640">
+                                                Episode 015 </a>
+                                        </div>
+
+                                        <div>
+                                            <a aria-label="Life Lessons with Uramichi Oniisan" class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/06/Life-Lessons-with-Uramichi-Oniisan.jpg);"
+                                                href="https://kissanime.com.ru/Anime/Life-Lessons-with-Uramichi-Oniisan.86455/"
+                                                title="Episode 12">
+                                                <img alt="Life Lessons with Uramichi Oniisan"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/06/Life-Lessons-with-Uramichi-Oniisan.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/Life-Lessons-with-Uramichi-Oniisan.86455/"
+                                                    data-jtitle="Uramichi Oniisan"
+                                                    title="Life Lessons with Uramichi Oniisan">Life Lessons with
+                                                    Uramichi Oniisan</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/Life-Lessons-with-Uramichi-Oniisan.86455/Episode-011?id=172638">
+                                                Episode 011 </a>
+                                        </div>
+
+                                        <div>
+                                            <a aria-label="Battle Game in 5 Seconds" class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/06/Battle-in-5-seconds-after-meeting.jpg);"
+                                                href="https://kissanime.com.ru/Anime/Battle-in-5-seconds-after-meeting/"
+                                                title="Episode 11">
+                                                <img alt="Battle Game in 5 Seconds"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/06/Battle-in-5-seconds-after-meeting.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/Battle-in-5-seconds-after-meeting/"
+                                                    data-jtitle="Deatte 5-byou de Battle"
+                                                    title="Battle Game in 5 Seconds">Battle Game in 5 Seconds</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/Battle-in-5-seconds-after-meeting/Episode-010?id=172635">
+                                                Episode 010 </a>
+                                        </div>
+
+                                        <div>
+                                            <a aria-label="Moon, Laika, and the Bloodsucking Princess"
+                                                class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/09/Moon-Laika-and-the-Bloodsucking-Princess.jpg);"
+                                                href="https://kissanime.com.ru/Anime/Moon-Laika-and-the-Bloodsucking-Princess/"
+                                                title="Episode 1">
+                                                <img alt="Moon, Laika, and the Bloodsucking Princess"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/09/Moon-Laika-and-the-Bloodsucking-Princess.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/Moon-Laika-and-the-Bloodsucking-Princess/"
+                                                    data-jtitle="Tsuki to Laika to Nosferatu"
+                                                    title="Moon, Laika, and the Bloodsucking Princess">Moon, Laika, and
+                                                    the Bloodsucking Princess</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/Moon-Laika-and-the-Bloodsucking-Princess/-Trailer?id=172631">
+                                                _Trailer </a>
+                                        </div>
+                                        <div>
+                                            <a aria-label="Taisho Otome Fairy Tale" class="thumb_slide full"
+                                                style="background-image:url(https://static.anmedm.com/media/imagesv2/2021/09/Taisho-Otome-Fairy-Tale.jpg);"
+                                                href="https://kissanime.com.ru/Anime/Taisho-Otome-Fairy-Tale/"
+                                                title="Episode 1">
+                                                <img alt="Taisho Otome Fairy Tale"
+                                                    src="https://static.anmedm.com/media/imagesv2/2021/09/Taisho-Otome-Fairy-Tale.jpg">
+                                            </a>
+                                            <h3><a class="jtitle"
+                                                    href="https://kissanime.com.ru/Anime/Taisho-Otome-Fairy-Tale/"
+                                                    data-jtitle="Taishou Otome Otogibanashi"
+                                                    title="Taisho Otome Fairy Tale">Taisho Otome Fairy Tale</a></h3>
+                                            <a class="textDark"
+                                                href="https://kissanime.com.ru/Anime/Taisho-Otome-Fairy-Tale/-Trailer?id=172630">
+                                                _Trailer </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear2"></div>
+                    <div id="submenu" class="full">
+                        <div id="tabmenucontainer" class="full">
+                            <ul>
+                                <li><a href="javascript:void(0);" id="liTrendingtab" title="Hot anime in this season"
+                                        class="tabactive" onclick="showTabData('trending')">New &amp; Hot</a>
+                                </li>
+                                <li><a href="javascript:void(0);" id="liTrendingAnimetab" title="Trending"
+                                        onclick="showTabData('trendinganime')">Trending</a>
+                                </li>
+                                <li><a href="javascript:void(0);" id="liNewesttab" title="Recent additions"
+                                        onclick="showTabData('newest')">Recent additions</a>
+                                </li>
+                                <li><a href="javascript:void(0);" id="liMostViewtab" title="Most popular"
+                                        onclick="showTabData('mostview')">Most popular</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="full" style="text-align:center;">
+                            <div style="display: inline-block; margin: 10px;margin-top: 15px;">
+                                <script
+                                    src="//ad.kissanime.com.ru/iov2/script.php?id=BANNER_300x250&type=pc&v=379160230"
+                                    type="text/javascript"></script>
+                            </div>
+                            <div style="display: inline-block; margin: 10px;margin-top: 15px;">
+                                <script
+                                    src="//ad.kissanime.com.ru/iov2/script.php?id=BANNER_300x250_2&type=pc&v=1034165014"
+                                    type="text/javascript"></script>
+                            </div>
+                        </div>
+                        <div class="full">
+                            <center>
+                                <script
+                                    src="//ad.kissanime.com.ru/iov2/script.php?id=BANNER_300x250_2_MOBILE&type=mobile&v=1513068295"
+                                    type="text/javascript"></script>
+                            </center>
+                        </div>
+                        <div id="subcontent" style="border-top :none !important" class="full">
+                            <div id="tab-trending">
+                                <div class="full">
+                                    <div class="item_film_list">
+                                        <a href="https://kissanime.com.ru/Anime/TSUKIMICHI-Moonlit-Fantasy/">
+                                            <img alt="TSUKIMICHI -Moonlit Fantasy-" class="thumb"
+                                                src="https://static.anmedm.com/media/imagesv2/2021/06/TSUKIMICHI-Moonlit-Fantasy.jpg">
+                                        </a>
+                                        <h3><a href="https://kissanime.com.ru/Anime/TSUKIMICHI-Moonlit-Fantasy/"
+                                                class="jtitle" data-jtitle="Tsuki ga Michibiku Isekai Douchuu"><span
+                                                    class="title">TSUKIMICHI -Moonlit Fantasy-</span></a></h3>
+                                        <p class="info">
+                                            <span>Genres:</span>
+                                            <a href="/Genre/Action" class="dotUnder" title="Action">Action</a><span
+                                                class="info">,</span> <a href="/Genre/Adventure" class="dotUnder"
+                                                title="Adventure">Adventure</a><span class="info">,</span> <a
+                                                href="/Genre/Comedy" class="dotUnder" title="Comedy">Comedy</a><span
+                                                class="info">,</span> <a href="/Genre/Fantasy" class="dotUnder"
+                                                title="Fantasy">Fantasy</a>
+                                        </p>
+                                        <p><span class="info">Latest:</span> <a rel="nofollow"
+                                                href="https://kissanime.com.ru/Anime/TSUKIMICHI-Moonlit-Fantasy/Episode-011?id=172652">Episode
+                                                011</a></p>
+                                        <img class="badge" alt="1 image"
+                                            src="https://static.anmedm.com/themes/v3/images/1.png">
+                                    </div>
+                                    <div class="item_film_list">
+                                        <a
+                                            href="https://kissanime.com.ru/Anime/That-Time-I-Got-Reincarnated-as-a-Slime-Season-2-Part-2.48046/">
+                                            <img alt="That Time I Got Reincarnated as a Slime Season 2 Part 2"
+                                                class="thumb"
+                                                src="https://static.anmedm.com/media/imagesv2/2021/06/That-Time-I-Got-Reincarnated-as-a-Slime-Season-2-Part-2.jpg">
+                                        </a>
+                                        <h3><a href="https://kissanime.com.ru/Anime/That-Time-I-Got-Reincarnated-as-a-Slime-Season-2-Part-2.48046/"
+                                                class="jtitle"
+                                                data-jtitle="Tensei Shitara Slime Datta Ken 2nd Season Part 2"><span
+                                                    class="title">That Time I Got Reincarnated as a Slime Season 2 Part
+                                                    2</span></a></h3>
+                                        <p class="info">
+                                            <span>Genres:</span>
+                                            <a href="/Genre/Adventure" class="dotUnder"
+                                                title="Adventure">Adventure</a><span class="info">,</span> <a
+                                                href="/Genre/Comedy" class="dotUnder" title="Comedy">Comedy</a><span
+                                                class="info">,</span> <a href="/Genre/Fantasy" class="dotUnder"
+                                                title="Fantasy">Fantasy</a>
+                                        </p>
+                                        <p><span class="info">Latest:</span> <a rel="nofollow"
+                                                href="https://kissanime.com.ru/Anime/That-Time-I-Got-Reincarnated-as-a-Slime-Season-2-Part-2.48046/Episode-047?id=172647">Episode
+                                                047</a></p>
+                                        <img class="badge" alt="2 image"
+                                            src="https://static.anmedm.com/themes/v3/images/2.png">
+                                    </div>
+
+                                    <div class="item_film_list">
+                                        <a href="https://kissanime.com.ru/Anime/my-hero-academia-season-5.61692/">
+                                            <img alt="My Hero Academia Season 5" class="thumb"
+                                                src="https://static.anmedm.com/media/imagesv2/2021/06/My-Hero-Academia-Season-5.jpg">
+                                        </a>
+                                        <h3><a href="https://kissanime.com.ru/Anime/my-hero-academia-season-5.61692/"
+                                                class="jtitle" data-jtitle="Boku no Hero Academia 5"><span
+                                                    class="title">My Hero Academia Season 5</span></a></h3>
+                                        <p class="info">
+                                            <span>Genres:</span>
+                                            <a href="/Genre/Action" class="dotUnder" title="Action">Action</a><span
+                                                class="info">,</span> <a href="/Genre/Comedy" class="dotUnder"
+                                                title="Comedy">Comedy</a><span class="info">,</span> <a
+                                                href="/Genre/Super-Power" class="dotUnder" title="Super Power">Super
+                                                Power</a><span class="info">,</span> <a href="/Genre/School"
+                                                class="dotUnder" title="School">School</a><span class="info">,</span> <a
+                                                href="/Genre/Shounen" class="dotUnder" title="Shounen">Shounen</a>
+                                        </p>
+                                        <p><span class="info">Latest:</span> <a rel="nofollow"
+                                                href="https://kissanime.com.ru/Anime/my-hero-academia-season-5.61692/Episode-111?id=172589">Episode
+                                                111</a></p>
+                                        <img class="badge" alt="4 image"
+                                            src="https://static.anmedm.com/themes/v3/images/4.png">
+                                    </div>
+                                </div>
+                                <div class="full more_in_tab">
+                                    <a rel="nofollow"
+                                        href="https://kissanime.com.ru/AnimeListOnline/NewAndHot">More...</a>
+                                </div>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+                        <!-- end div subcontent -->
+                    </div>
+                    <!--end div submenu -->
+                    <div class="clear2"></div>
+                </div>
+            </div>
+            <!-- end div leftside -->
+
+            <div id="rightside">
+                <div class="rightBox full">
+                    <div class="barTitle full">Report Audio or Video</div>
+                    <div class="barContent full">
+                        <div class="arrow-general"></div>
+                        <div class="full">
+                            <p>If you found broken video on Kiss Anime please report us via <a
+                                    href="https://forms.gle/mkuVKgUwpigaa9LUA" target="blank">Facebook messages</a>,
+                                thank you.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="rightBox full">
+                    <div class="barTitle full">Like me Please ^^</div>
+                    <div class="barContent full">
+                        <div class="arrow-general"> <br><br>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="rightBox full">
+                    <div class="barTitle full">Ongoing series</div>
+                    <div class="barContent full">
+                        <div class="arrow-general"></div>
+                        <div class="full">
+                            <div class="series_links full">
+                                <h4 class="tit"><a class="jtitle" data-jtitle="Higurashi no Naku Koro ni Sotsu (Dub)"
+                                        href="https://kissanime.com.ru/Anime/higurashi-when-they-cry-sotsu-dub.94275/">Night
+                                        Head 2041 Episode 10</a></h4>
+                                <h4 class="tit"><a class="jtitle" data-jtitle="Peach Boy Riverside"
+                                        href="https://kissanime.com.ru/Anime/Peach-Boy-Riverside/">Megami-ryu no
+                                        Ryubo-kun Episode 10</a></h4>
+                                <h4 class="tit"><a class="jtitle" data-jtitle="SCARLET NEXUS"
+                                        href="https://kissanime.com.ru/Anime/Scarlet-Nexus.44713/">Kobayashi san chi no
+                                        maid dragon season 1</a>
+                                </h4>
+                                <h4 class="tit"><a class="jtitle" data-jtitle="SD Gundam World Heroes"
+                                        href="https://kissanime.com.ru/Anime/SD-Gundam-World-Heroes/">Kobayashi san chi
+                                        no maid dragon season 2</a></h4>
+                                <h4 class="tit"><a class="jtitle"
+                                        data-jtitle="Super Dragon Ball Heroes - Big Bang Mission"
+                                        href="https://kissanime.com.ru/Anime/super-dragon-ball-heroes-big-bang-mission.46201/">Kobayashi
+                                        san chi no maid dragon season 3</a></h4>
+                                <h4 class="tit"><a class="jtitle" data-jtitle="Night Head 2041"
+                                        href="https://kissanime.com.ru/Anime/NIGHT-HEAD-2041/">NIGHT HEAD 2041</a></h4>
+                                <h4 class="tit"><a class="jtitle" data-jtitle="Kobayashi-san Chi no Maid Dragon S"
+                                        href="https://kissanime.com.ru/Anime/miss-kobayashi-s-dragon-maid-s.75992/">Miss
+                                        Kobayashi's Dragon Maid S</a></h4>
+                                <h4 class="tit"><a class="jtitle" data-jtitle="Kobayashi-san Chi no Maid Dragon S (Dub)"
+                                        href="https://kissanime.com.ru/Anime/miss-kobayashi-s-dragon-maid-s-dub.20364/">Miss
+                                        Kobayashi's Dragon Maid S (Dub)</a></h4>
+                                <h4 class="tit"><a class="jtitle" data-jtitle="Heike Monogatari"
+                                        href="https://kissanime.com.ru/Anime/The-Heike-Story/">The Heike Story</a></h4>
+                                <h4 class="tit"><a class="jtitle" data-jtitle="Tsuki ga Michibiku Isekai Douchuu"
+                                        href="https://kissanime.com.ru/Anime/TSUKIMICHI-Moonlit-Fantasy/">TSUKIMICHI
+                                        -Moonlit Fantasy-</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <link rel="preload" href="https://static.anmedm.com/themes/v3/js/main.min.js?v=1.1.6" as="script">
+
+            <!-- jQuery CDN link-->
+            <script type="text/javascript" src="./owl-carousel/jquery.min.js"></script>
+
+            <script src="./owl-carousel/owl.carousel.min.js"></script>
+
+            <script>
+
+                var owl = $('.owl-carousel');
+                owl.owlCarousel({
+                    items: 5,
+                    loop: true,
+                    margin: 10,
+                    autoplay: true,
+                    dots: false,
+                    autoplayTimeout: 2000,
+                    autoplayHoverPause: true,
+                    responsiveClass: true,
+                    responsive: {
+                        0: {
+                            items: 1,
+                            nav: false
+                        },
+                        600: {
+                            items: 3,
+                            nav: false
+                        },
+                        1000: {
+                            items: 5,
+                            nav: false,
+                            loop: false
+                        }
+                    }
+                });
+            </script>
+
+</body>
+
+</html>
